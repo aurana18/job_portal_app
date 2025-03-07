@@ -1,5 +1,5 @@
 .app-container {
-  background-color: #f0f5ff;
+  background-color: #2c4c82;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -7,6 +7,9 @@
   background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
   background-size: cover; 
   background-position: center; 
+  position: relative; /* Ensure this line is present */
+  height: 100%; /* Ensure this line is present */
+  overflow: hidden; /* Add this line to prevent overflow issues */
 }
 
 .content {
@@ -14,4 +17,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%; /* Add this line to ensure full width */
+  padding: 20px; /* Add this line to add some padding */
+}
+
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+  position: relative; /* Ensure this line is present */
+  bottom: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
