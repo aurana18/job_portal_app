@@ -7,66 +7,75 @@
     justify-content: center;
     background-color: #f4f4f4;
     position: relative;
-  }
-  
-  /* Logo styling (Top Left Corner) */
-  .logo {
+    background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png');
+    font-family: 'Arial', sans-serif;
+}
+
+.logo {
     position: absolute;
     top: 20px;
     left: 30px;
     font-size: 24px;
     font-weight: bold;
     color: #1E3A8A;
-  }
-  
-  /* Register container */
-  .register-container {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
-  }
-  
-  .register-box {
+}
+
+.register-box {
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     text-align: center;
-  }
-  
-  /* Input fields */
-  .input-group {
+    transition: transform 0.3s ease-in-out;
+}
+
+.register-box:hover {
+    transform: scale(1.05);
+}
+
+.input-group {
     margin-bottom: 15px;
     text-align: left;
-  }
-  
-  .input-group label {
+}
+
+.input-group label {
     display: block;
     font-size: 14px;
     margin-bottom: 5px;
     font-weight: bold;
-  }
-  
-  .input-group input {
+}
+
+.input-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  /* Error messages */
-  .error {
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-group input:focus {
+    border-color: #1E3A8A;
+    outline: none;
+}
+
+.error {
     color: red;
     font-size: 12px;
     margin-top: 5px;
-  }
-  
-  /* Register button */
-  .register-btn {
+}
+
+.register-btn {
     width: 100%;
     padding: 10px;
     background-color: #1E3A8A;
@@ -75,20 +84,23 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  .register-btn:hover {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.register-btn:hover {
     background-color: #142b6f;
-  }
-  .back-button {
+}
+
+.back-button {
     display: block;
     margin-top: 15px;
     text-align: center;
     color: #007bff;
     text-decoration: none;
-  }
-  
-  .back-button:hover {
+    transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover {
     text-decoration: underline;
-  }
-  
+    color: #0056b3;
+}

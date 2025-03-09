@@ -5,10 +5,10 @@
   }
   
   .job-box {
-    background-color: rgb(20, 206, 150);
+    background-color: rgb(244, 248, 247);
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(24, 49, 211, 0.1);
     text-align: center;
     width: 200px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;

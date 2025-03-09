@@ -1,6 +1,6 @@
 .header {
     background-color: #0044cc;
-    color: white;
+    color: rgb(70, 14, 201);
     width: 100%;
     padding: 30px;
     display: flex;
@@ -41,11 +41,11 @@
 }
 
 .header a:hover {
-    color: #cce0ff;
+    color: #474df3;
 }
 .register-button {
     background-color: #007bff;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 10px 15px;
     text-decoration: none;
     border-radius: 5px;

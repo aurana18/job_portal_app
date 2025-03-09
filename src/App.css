@@ -1,34 +1,67 @@
+.header {
+  width: 100%;
+  padding: 20px;
+  background-color: #2135cd;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header a {
+  color: rgb(68, 25, 211);
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
 .app-container {
-  background-color: #2c4c82;
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
-  background-size: cover; 
-  background-position: center; 
-  position: relative; /* Ensure this line is present */
-  height: 100%; /* Ensure this line is present */
-  overflow: hidden; /* Add this line to prevent overflow issues */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: -1;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .content {
-  flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Add this line to ensure full width */
-  padding: 20px; /* Add this line to add some padding */
+  width: 100%;
+  padding: 20px;
+  background: rgba(248, 248, 248, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 footer {
   background-color: #003366;
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: 1px;
   width: 100%;
-  position: relative; /* Ensure this line is present */
+  position: static;
   bottom: 0;
+  left: 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 html, body {
@@ -37,4 +70,34 @@ html, body {
   padding: 0;
   display: flex;
   flex-direction: column;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
 }
+
+#root, .app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.job-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+
+

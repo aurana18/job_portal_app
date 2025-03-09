@@ -1,31 +1,41 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import JobListings from "./components/JobListings";
-import SearchBar from "./components/SearchBar";
-import Footer from "./components/Footer";
+import Header from "./components/homecomp/Header";
+import JobListings from "./components/homecomp/JobListings";
+import SearchBar from "./components/homecomp/SearchBar";
+import Footer from "./components/homecomp/Footer";
 import Register from "./components/Register"; 
+import ViewJobs from "./components/ViewJobs";
+import PostJobs from "./components/PostJobs"; 
+import Contact from "./components/Contact"; 
+import Profile from "./components/Profile";  
 import "./App.css";
 
 
 const Home = () => (
-  <div className="page-container">
-    <Header />
+  <>
     <div className="content">
-      <JobListings />
-      <SearchBar />
+      <div className="job-cards">
+        <JobListings />
+      </div>
+      <div className="search-bar-container">
+        <SearchBar />
+      </div>
     </div>
-    <Footer />
-  </div>
+  </>
 );
-
 
 const App = () => {
   return (
     <Router>
+      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} exact />
         <Route path="/register" element={<Register />} />
+        <Route path="/viewjobs" element={<ViewJobs />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/postjobs" element={<PostJobs />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );
