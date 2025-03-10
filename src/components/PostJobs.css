@@ -1,0 +1,105 @@
+.post-job-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.post-job-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-job-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.post-job-box h2 {
+    margin-bottom: 20px;
+    color: #1a237e;
+    font-size: 24px;
+}
+
+.post-job-box p {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #1a237e;
+    outline: none;
+}
+
+.input-group select {
+    appearance: none;
+}
+
+.input-group textarea {
+    height: 120px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.post-job-btn {
+    background: #1a237e;
+    color: white;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.post-job-btn:hover {
+    background: #3949ab;
+    transform: translateY(-5px);
+}
+
+.success-message {
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}

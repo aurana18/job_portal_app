@@ -8,7 +8,8 @@ import Register from "./components/Register";
 import ViewJobs from "./components/ViewJobs";
 import PostJobs from "./components/PostJobs"; 
 import Contact from "./components/Contact"; 
-import Profile from "./components/Profile";  
+import Profile from "./components/Profile"; 
+import Activity from "./components/Activity"; 
 import "./App.css";
 
 
@@ -34,8 +35,9 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/viewjobs" element={<ViewJobs />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/postjobs" element={<PostJobs />} />
+        <Route path="/post-job" element={<PostJobs />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/activity" element={<Activity />} /> 
       </Routes>
     </Router>
   );

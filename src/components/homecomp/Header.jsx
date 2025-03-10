@@ -14,9 +14,10 @@ const Header = () => {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/viewjobs">View Jobs</Link></li>
-            <li><Link to="/postjob">Post Job</Link></li>
+            <li><Link to="/post-job">Post a Job</Link></li>
             <li><Link to="/register">Register</Link></li>
             <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/activity">Activity</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>

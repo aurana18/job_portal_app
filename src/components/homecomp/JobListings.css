@@ -5,18 +5,19 @@
   }
   
   .job-box {
-    background-color: rgb(244, 248, 247);
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 5px 10px rgba(24, 49, 211, 0.1);
+    background: linear-gradient(135deg, rgb(12, 8, 243), rgb(85, 72, 210));
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(24, 49, 211, 0.2);
     text-align: center;
-    width: 200px;
+    width: 220px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
   }
   
   .job-box:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   }
   
   .apply-button {

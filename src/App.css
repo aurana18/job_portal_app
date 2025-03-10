@@ -1,27 +1,32 @@
+/* Header Styling */
 .header {
   width: 100%;
-  padding: 20px;
-  background-color: #2135cd;
+  padding: 15px 20px;
+  background-color: #1a237e; /* Deep Indigo */
   text-align: center;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
+  color: white;
 }
 
 .header a {
-  color: rgb(68, 25, 211);
+  color: #252dd4; 
   text-decoration: none;
   margin: 0 15px;
   font-size: 18px;
+  transition: color 0.3s ease;
 }
 
 .header a:hover {
+  color: #3557ef; 
   text-decoration: underline;
 }
 
+/* Main App Container */
 .app-container {
   min-height: 100vh;
   width: 100%;
@@ -33,37 +38,60 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative;
-  z-index: -1;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
+/* Content Box */
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
+  max-width: 1200px;
   padding: 20px;
-  background: rgba(248, 248, 248, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Footer */
 footer {
-  background-color: #003366;
+  background-color: #10227d; /* Deep Blue */
   color: white;
   text-align: center;
-  padding: 1px;
+  padding: 15px;
   width: 100%;
-  position: static;
+  position: relative;
   bottom: 0;
   left: 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
 }
 
+/* Job Cards */
+.job-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Search Bar */
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Body & Global Styles */
 html, body {
   height: 100%;
   margin: 0;
@@ -71,7 +99,9 @@ html, body {
   display: flex;
   flex-direction: column;
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
+  background-color: #eef2f7; /* Light Grayish Blue */
+  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
+
 }
 
 #root, .app-container {
@@ -80,24 +110,6 @@ html, body {
   min-height: 100vh;
 }
 
-.job-cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
 
 
 
