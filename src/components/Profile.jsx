@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation
 import "./Profile.css";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
-  const [user, setUser] = useState({
+
+  // Load user from local storage
+  const storedUser = JSON.parse(localStorage.getItem("user")) || {
     name: "Name",
     email: "email@example.com",
     phone: "+1 234 567 890",
     location: "location",
     bio: "bio",
-  });
+  };
 
+  const [user, setUser] = useState(storedUser);
   const [newUserData, setNewUserData] = useState({ ...user });
+
+  useEffect(() => {
+    // Update local storage whenever user state changes
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -26,11 +36,17 @@ const Profile = () => {
     setIsEditing(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn"); // Only remove login status
+    window.location.href = "/login"; // Redirect to login page
+  };
+  
+
   return (
     <div className="profile-container">
       <div className="profile-header">
         <img
-          src="https://via.placehohttps://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpglder.com/120"
+          src="https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
           alt="Profile"
           className="profile-pic"
         />
@@ -58,8 +74,8 @@ const Profile = () => {
       <div className="profile-section">
         <h3>Saved Jobs</h3>
         <ul>
-          <li>previous jobs</li>
-          <li>previous jobs</li>
+          <li>Previous jobs</li>
+          <li>Previous jobs</li>
         </ul>
       </div>
 
@@ -70,6 +86,9 @@ const Profile = () => {
           <li>Average job rating</li>
         </ul>
       </div>
+
+      {/* Logout Button */}
+      <button className="logout-btn" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

@@ -82,16 +82,6 @@ const Contact = () => {
           </form>
         )}
       </div>
-
-      {/* Business Info */}
-      <div className="contact-info">
-        <h3>📍 Our Office</h3>
-        <p>123 JobStreet, New York, NY 10001</p>
-        <h3>📧 Email</h3>
-        <p>support@jobportal.com</p>
-        <h3>📞 Phone</h3>
-        <p>(123) 456-7890</p>
-      </div>
     </div>
   );
 };

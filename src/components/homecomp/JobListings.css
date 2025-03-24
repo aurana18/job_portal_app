@@ -1,8 +1,12 @@
 .job-listings {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center align */
+  gap: 20px;
+  padding: 20px;
+}
+
+
   
   .job-box {
     background: linear-gradient(135deg, rgb(12, 8, 243), rgb(85, 72, 210));

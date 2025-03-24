@@ -70,26 +70,34 @@ footer {
   font-size: 16px;
 }
 
-/* Job Cards */
-.job-cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+
+.search-container {
+  text-align: center;
+  margin: 40px auto; /* Adjust position */
+  max-width: 600px;
 }
 
-/* Search Bar */
-.search-bar-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+.search-input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
 }
+
+.search-button {
+  padding: 10px 15px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.search-button:hover {
+  background: #0056b3;
+}
+
 
 /* Body & Global Styles */
 html, body {
@@ -109,6 +117,60 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
 }
+.home-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero-section {
+  background: #4654e8; /* Warm orange for gig work vibe */
+  color: white;
+  padding: 50px 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.introduction-section {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.introduction-section h2 {
+  font-size: 28px;
+  color: #f59e0b;
+  margin-bottom: 10px;
+}
+
+.introduction-section p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.introduction-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.introduction-section li {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+
 
 
 

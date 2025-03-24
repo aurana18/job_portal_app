@@ -1,90 +1,46 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css"; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
-    phone: "",
     password: "",
-    confirmPassword: "",
   });
-
-  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validate = () => {
-    let newErrors = {};
-    if (!formData.fullName) newErrors.fullName = "Full name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.phone) newErrors.phone = "Phone number is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
-    if (!formData.confirmPassword) newErrors.confirmPassword = "Confirm your password";
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("🎉 Registration Successful!");
-      setFormData({ fullName: "", email: "", phone: "", password: "", confirmPassword: "" });
+    const response = await fetch("http://localhost/backend/register.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (data.success) {
+      setMessage("Registration successful! Redirecting...");
+      setTimeout(() => navigate("/login"), 2000);
+    } else {
+      setMessage(data.message);
     }
   };
 
   return (
-    <div className="page-container">
-      <div className="logo">Logo</div>
-
-      <div className="register-container">
-        <div className="register-box">
-          <h2>Sign Up</h2>
-          <p>Create an account to get started</p>
-          <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label>Full Name</label>
-              <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your full name" />
-              {errors.fullName && <p className="error">{errors.fullName}</p>}
-            </div>
-
-            <div className="input-group">
-              <label>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" />
-              {errors.email && <p className="error">{errors.email}</p>}
-            </div>
-
-            <div className="input-group">
-              <label>Phone Number</label>
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter your phone number" />
-              {errors.phone && <p className="error">{errors.phone}</p>}
-            </div>
-
-            <div className="input-group">
-              <label>Password</label>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Create a password" />
-              {errors.password && <p className="error">{errors.password}</p>}
-            </div>
-
-            <div className="input-group">
-              <label>Confirm Password</label>
-              <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password" />
-              {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-            </div>
-
-            <button type="submit" className="register-btn">Register</button>
-          </form>
-
-          
-          <Link to="/" className="back-button">← Back to Home</Link>
-        </div>
-      </div>
+    <div className="register-container">
+      <h2>Register</h2>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <button type="submit" className="register-btn">Register</button>
+      </form>
+      {message && <p className={message.includes("successful") ? "success-message" : "error-message"}>{message}</p>}
     </div>
   );
 };

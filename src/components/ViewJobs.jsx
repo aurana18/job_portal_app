@@ -1,97 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ViewJobs.css";
-
-const jobListings = [
-  {
-    id: 1,
-    title: "job",
-    name: "",
-    location: "",
-    duration: "",
-    description: "",
-    budget: "",
-    datePosted: "",
-  },
-  {
-    id: 2,
-    title: "job",
-    name: "",
-    location: "",
-    duration: "",
-    description: "",
-    budget: "",
-    datePosted: "",
-  },
-  {
-    id: 3,
-    title: "job",
-    name: "",
-    location: "",
-    duration: "",
-    description: "",
-    budget: "",
-    datePosted: "",
-  },
-  {
-    id: 4,
-    title: "job",
-    name: "",
-    location: "",
-    duration: "",
-    description: "",
-    budget: "",
-    datePosted: "",
-  },
-];
+import { Link } from "react-router-dom"; 
+import { Briefcase, MapPin, DollarSign } from "lucide-react"; 
 
 const ViewJobs = () => {
-  const [search, setSearch] = useState("");
-  const [filteredJobs, setFilteredJobs] = useState(jobListings);
+  const [jobs, setJobs] = useState([]);
+  const [expandedJob, setExpandedJob] = useState(null); // Track which job description is expanded
 
-  const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearch(value);
-    setFilteredJobs(
-      jobListings.filter(
-        (job) =>
-          job.title.toLowerCase().includes(value) ||
-          job.company.toLowerCase().includes(value) ||
-          job.location.toLowerCase().includes(value)
-      )
-    );
+  useEffect(() => {
+    fetch("http://localhost/backend/fetch_jobs.php")
+      .then((response) => response.json())
+      .then((data) => setJobs(data))
+      .catch((error) => console.error("Error fetching jobs:", error));
+  }, []);
+
+  const toggleDescription = (jobId) => {
+    setExpandedJob(expandedJob === jobId ? null : jobId);
   };
 
   return (
-    <div className="jobs-container">
-      <h1>Find Your Next Job</h1>
+    <div className="view-jobs-container">
+      <h2>Find Your Next Opportunity</h2>
+      <p>Browse the latest job listings and apply today.</p>
       
-      <input
-        type="text"
-        placeholder="Search for jobs, companies, or locations..."
-        value={search}
-        onChange={handleSearch}
-        className="search-input"
-      />
-
-      <div className="job-list">
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => (
+      {jobs.length === 0 ? (
+        <p className="no-jobs">No jobs available at the moment.</p>
+      ) : (
+        <div className="job-grid">
+          {jobs.map((job) => (
             <div key={job.id} className="job-card">
-              <h2>{job.title}</h2>
-              <p className="company">{job.company} - {job.location}</p>
-              <p><strong>Type:</strong> {job.type}</p>
-              <p><strong>Salary:</strong> {job.salary}</p>
-              <p><strong>Date Posted:</strong> {job.datePosted}</p>
-              <p className="description">{job.description}</p>
-              <button className="apply-btn">Apply Now</button>
+              <h3 className="job-title">{job.title}</h3>
+              <p className="job-meta">
+                <Briefcase size={18} /> {job.name} &nbsp; | &nbsp;
+                <MapPin size={18} /> {job.location}
+              </p>
+              
+              {/* Conditionally display the full description */}
+              <p className="job-description">
+                {expandedJob === job.id ? job.description : `${job.description.substring(0, 100)}...`}
+              </p>
+
+              <button className="see-more-btn" onClick={() => toggleDescription(job.id)}>
+                {expandedJob === job.id ? "See Less" : "See More"}
+              </button>
+
+              <p className="job-budget">
+                <DollarSign size={18} /> {job.budget ? `$${job.budget}` : "Negotiable"}
+              </p>
+              <Link to={`/job/${job.id}`} className="apply-btn">Apply Now</Link> 
             </div>
-          ))
-        ) : (
-          <p className="no-jobs">No jobs found</p>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 export default ViewJobs;
+
