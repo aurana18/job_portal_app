@@ -1,25 +1,28 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
+header("Content-Type: application/json");
 
 // Include database connection
-include "db_connect.php";
+require_once __DIR__ . "/db_connect.php";
 
-// Fetch jobs from the database
-$sql = "SELECT id, title, name, location, description, budget FROM jobs ORDER BY id DESC";
+// Fetch jobs with the name of the user who posted them
+$sql = "SELECT jobs.id, jobs.title, jobs.location, jobs.description, jobs.budget, 
+               users.name AS posted_by_name 
+        FROM jobs 
+        LEFT JOIN users ON jobs.posted_by = users.id";
+
 $result = $conn->query($sql);
 
 $jobs = [];
-
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $jobs[] = $row;
     }
 }
 
-// Return JSON response
+// Return jobs as JSON
 echo json_encode($jobs);
+
 $conn->close();
 ?>
+

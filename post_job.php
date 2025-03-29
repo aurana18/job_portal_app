@@ -11,11 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 }
 
 // Include database connection
-$databaseFile = __DIR__ . "/db_connect.php";
-if (!file_exists($databaseFile)) {
-    die(json_encode(["message" => "Database connection file not found."]));
-}
-include $databaseFile;
+require_once __DIR__ . "/db_connect.php";
 
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -23,14 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
     
     // Validate input
-    if (!isset($data["title"]) || !isset($data["name"]) || !isset($data["location"]) || !isset($data["description"])) {
+    if (!isset($data["title"]) || !isset($data["location"]) || !isset($data["description"]) || !isset($data["posted_by"])) {
         echo json_encode(["message" => "Invalid input."]);
         exit();
     }
 
     // Insert into database
-    $stmt = $conn->prepare("INSERT INTO jobs (title, name, location, description, budget) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $data["title"], $data["name"], $data["location"], $data["description"], $data["budget"]);
+    $stmt = $conn->prepare("INSERT INTO jobs (title, location, description, budget, posted_by) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssi", $data["title"], $data["location"], $data["description"], $data["budget"], $data["posted_by"]);
 
     if ($stmt->execute()) {
         echo json_encode(["message" => "Job posted successfully"]);
@@ -44,3 +40,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo json_encode(["message" => "Invalid request method"]);
 }
 ?>
+
+
