@@ -11,7 +11,7 @@ const PostJob = () => {
 
   const [user, setUser] = useState(null);
 
-  // Load user from localStorage
+  
   useEffect(() => {
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -47,7 +47,7 @@ const PostJob = () => {
       const data = await response.json();
       alert(data.message);
 
-      // Reset form after successful submission
+     
       setFormData({
         title: "",
         location: "",

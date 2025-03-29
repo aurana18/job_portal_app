@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
 
-  // Load user from local storage
   const storedUser = JSON.parse(localStorage.getItem("user")) || {
     name: "Name",
     email: "email@example.com",
@@ -19,7 +18,6 @@ const Profile = () => {
   const [newUserData, setNewUserData] = useState({ ...user });
 
   useEffect(() => {
-    // Update local storage whenever user state changes
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
@@ -37,13 +35,12 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");  
-    localStorage.removeItem("user");       
-    localStorage.removeItem("appliedJobs"); 
-  
-    navigate("/login"); 
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+    localStorage.removeItem("appliedJobs");
+
+    navigate("/login");
   };
-  
 
   return (
     <div className="profile-container">
@@ -90,7 +87,6 @@ const Profile = () => {
         </ul>
       </div>
 
-      {/* Logout Button */}
       <button className="logout-btn" onClick={handleLogout}>Logout</button>
     </div>
   );

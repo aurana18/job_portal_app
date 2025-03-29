@@ -20,7 +20,6 @@ const Activity = () => {
     }
   }, []);
 
-  // Fetch users for chat
   const fetchContacts = async (userId) => {
     try {
       const response = await fetch(`http://localhost/backend/fetch_contacts.php?user_id=${userId}`);
@@ -31,7 +30,6 @@ const Activity = () => {
     }
   };
 
-  // Fetch posted jobs
   const fetchPostedJobs = async (userId) => {
     try {
       const response = await fetch(`http://localhost/backend/fetch_user_jobs.php?user_id=${userId}`);
@@ -42,7 +40,6 @@ const Activity = () => {
     }
   };
 
-  // Fetch applied jobs
   const fetchAppliedJobs = async (userId) => {
     try {
       const response = await fetch(`http://localhost/backend/fetch_applied_jobs.php?user_id=${userId}`);
@@ -53,7 +50,6 @@ const Activity = () => {
     }
   };
 
-  // Fetch messages when receiver is selected
   useEffect(() => {
     if (user && receiver) {
       fetchMessages();
@@ -74,7 +70,6 @@ const Activity = () => {
     }
   };
 
-  // Send a message
   const sendMessage = async () => {
     if (!message.trim()) return;
 
@@ -98,8 +93,6 @@ const Activity = () => {
   return (
     <div className="activity-container">
       <h2>Activity Dashboard</h2>
-
-      {/* Posted Jobs */}
       <div className="section">
         <h3>Posted Jobs</h3>
         {postedJobs.length === 0 ? (
@@ -112,8 +105,6 @@ const Activity = () => {
           </ul>
         )}
       </div>
-
-      {/* Applied Jobs */}
       <div className="section">
         <h3>Jobs You Applied For</h3>
         {appliedJobs.length === 0 ? (
@@ -126,8 +117,6 @@ const Activity = () => {
           </ul>
         )}
       </div>
-
-      {/* Chat Section */}
       <div className="chat-section">
         <h3>Messages</h3>
         <div className="contacts-list">
@@ -137,7 +126,6 @@ const Activity = () => {
             </div>
           ))}
         </div>
-
         {receiver && (
           <div className="chat-box">
             <h4>Chat with {receiver.name}</h4>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ViewJobs.css";
 import { Link } from "react-router-dom";
-import { Briefcase, MapPin, DollarSign } from "lucide-react";
 
 const ViewJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -41,7 +40,7 @@ const ViewJobs = () => {
 
       if (data.success) {
         alert("Application submitted successfully!");
-        setAppliedJobs([...appliedJobs, jobId]); // Update UI
+        setAppliedJobs([...appliedJobs, jobId]); 
       } else {
         alert(data.message);
       }
@@ -64,14 +63,13 @@ const ViewJobs = () => {
             <div key={job.id} className="job-card">
               <h3 className="job-title">{job.title}</h3>
               <p className="job-meta">
-                <Briefcase size={18} /> {job.posted_by_name ? `Posted by ${job.posted_by_name}` : "Unknown"} &nbsp; | &nbsp;
-                <MapPin size={18} /> {job.location}
+                <span>👜</span> {job.posted_by_name ? `Posted by ${job.posted_by_name}` : "Unknown"} &nbsp; | &nbsp;
+                <span>📍</span> {job.location}
               </p>
-
 
               <p className="job-description">{job.description}</p>
               <p className="job-budget">
-                <DollarSign size={18} /> {job.budget ? `$${job.budget}` : "Negotiable"}
+                <span>💵</span> {job.budget ? `$${job.budget}` : "Negotiable"}
               </p>
 
               <button

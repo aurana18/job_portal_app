@@ -6,9 +6,9 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Clear user data
-    navigate("/login"); // Redirect to login page
-  };
+    localStorage.removeItem("user"); 
+    navigate("/login"); 
+  }; 
 
   return (
     <div className="logout-container">
