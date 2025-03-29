@@ -37,8 +37,11 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn"); // Only remove login status
-    window.location.href = "/login"; // Redirect to login page
+    localStorage.removeItem("isLoggedIn");  
+    localStorage.removeItem("user");       
+    localStorage.removeItem("appliedJobs"); 
+  
+    navigate("/login"); 
   };
   
 

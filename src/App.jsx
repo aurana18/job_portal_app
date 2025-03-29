@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/homecomp/Header";
-import JobListings from "./components/homecomp/JobListings";
 import SearchBar from "./components/homecomp/SearchBar";
 import Footer from "./components/homecomp/Footer";
 import Register from "./components/Register"; 

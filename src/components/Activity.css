@@ -1,125 +1,77 @@
-.activity-page {
-    display: flex;
-    height: 100vh;
-    background: #f5f5f5;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Left Sidebar */
-  .sidebar {
-    width: 250px;
-    background: white;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sidebar h3 {
-    margin-bottom: 10px;
-  }
-  
-  .sidebar button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #e0e7ff;
-    color: #2c4c82;
-    border-radius: 5px;
-  }
-  
-  .sidebar button.active,
-  .sidebar button:hover {
-    background: #2c4c82;
-    color: white;
-  }
-  
-  /* Main Activity Feed */
-  .activity-feed {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  h2 {
-    color: #2c4c82;
-    margin-bottom: 20px;
-  }
-  
-  .activity-card {
-    display: flex;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-  }
-  
-  .avatar {
-    background: #2c4c82;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-  }
-  
-  .activity-content {
-    flex: 1;
-  }
-  
-  .activity-content p {
-    margin: 5px 0;
-  }
-  
-  .timestamp {
-    font-size: 12px;
-    color: gray;
-  }
-  
-  .no-activity {
-    color: gray;
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  
-  /* Right Sidebar */
-  .right-sidebar {
-    width: 250px;
-    background: white;
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .right-sidebar h3 {
-    margin-bottom: 10px;
-  }
-  
-  .interview-card, .job-alert {
-    background: #fff3cd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .icon {
-    margin-right: 10px;
-    color: #ff9800;
-  }
-  
-  .job-alert {
-    background: #e3f2fd;
-    padding: 10px;
-  }
-  
+.activity-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.chat-section {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background: #fff;
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.contact {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.contact:hover {
+  background: #f5f5f5;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fafafa;
+}
+
+.my-message {
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  align-self: flex-end;
+  margin: 5px 0;
+}
+
+.their-message {
+  background: #eee;
+  padding: 8px;
+  border-radius: 10px;
+  align-self: flex-start;
+  margin: 5px 0;
+}
+
+input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 5px;
+}

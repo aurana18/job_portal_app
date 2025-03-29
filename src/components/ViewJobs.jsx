@@ -1,28 +1,61 @@
 import React, { useEffect, useState } from "react";
 import "./ViewJobs.css";
-import { Link } from "react-router-dom"; 
-import { Briefcase, MapPin, DollarSign } from "lucide-react"; 
+import { Link } from "react-router-dom";
+import { Briefcase, MapPin, DollarSign } from "lucide-react";
 
 const ViewJobs = () => {
   const [jobs, setJobs] = useState([]);
-  const [expandedJob, setExpandedJob] = useState(null); // Track which job description is expanded
+  const [appliedJobs, setAppliedJobs] = useState([]); // Track applied jobs
+  const [user, setUser] = useState(null); // Store logged-in user
 
   useEffect(() => {
+    // Fetch jobs from backend
     fetch("http://localhost/backend/fetch_jobs.php")
       .then((response) => response.json())
       .then((data) => setJobs(data))
       .catch((error) => console.error("Error fetching jobs:", error));
+
+    // Retrieve logged-in user from local storage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
   }, []);
 
-  const toggleDescription = (jobId) => {
-    setExpandedJob(expandedJob === jobId ? null : jobId);
+  const handleApply = async (jobId) => {
+    if (!user) {
+      alert("Please log in to apply for jobs.");
+      return;
+    }
+
+    const applicationData = { user_id: user.id, job_id: jobId };
+
+    try {
+      const response = await fetch("http://localhost/backend/apply_job.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(applicationData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Application submitted successfully!");
+        setAppliedJobs([...appliedJobs, jobId]); // Update UI
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      alert("Server error. Please try again later.");
+    }
   };
 
   return (
     <div className="view-jobs-container">
-      <h2>Find Your Next Opportunity</h2>
-      <p>Browse the latest job listings and apply today.</p>
-      
+      <h2>Find One-Time Jobs That Fit Your Skills</h2>
+      <p>Browse short-term gigs and flexible side jobs. Apply today and get paid!</p>
+
       {jobs.length === 0 ? (
         <p className="no-jobs">No jobs available at the moment.</p>
       ) : (
@@ -31,23 +64,25 @@ const ViewJobs = () => {
             <div key={job.id} className="job-card">
               <h3 className="job-title">{job.title}</h3>
               <p className="job-meta">
-                <Briefcase size={18} /> {job.name} &nbsp; | &nbsp;
+                <Briefcase size={18} /> {job.posted_by_name ? `Posted by ${job.posted_by_name}` : "Unknown"} &nbsp; | &nbsp;
                 <MapPin size={18} /> {job.location}
               </p>
-              
-              {/* Conditionally display the full description */}
-              <p className="job-description">
-                {expandedJob === job.id ? job.description : `${job.description.substring(0, 100)}...`}
-              </p>
 
-              <button className="see-more-btn" onClick={() => toggleDescription(job.id)}>
-                {expandedJob === job.id ? "See Less" : "See More"}
-              </button>
 
+              <p className="job-description">{job.description}</p>
               <p className="job-budget">
                 <DollarSign size={18} /> {job.budget ? `$${job.budget}` : "Negotiable"}
               </p>
-              <Link to={`/job/${job.id}`} className="apply-btn">Apply Now</Link> 
+
+              <button
+                className="apply-btn"
+                onClick={() => handleApply(job.id)}
+                disabled={appliedJobs.includes(job.id)}
+              >
+                {appliedJobs.includes(job.id) ? "Applied ✅" : "Apply Now"}
+              </button>
+
+              <Link to={`/job/${job.id}`} className="see-more-btn">See More</Link>
             </div>
           ))}
         </div>
@@ -57,4 +92,3 @@ const ViewJobs = () => {
 };
 
 export default ViewJobs;
-

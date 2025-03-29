@@ -1,77 +1,161 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Activity.css";
-import { FaEnvelope, FaBriefcase, FaBell, FaUsers, FaUserTie } from "react-icons/fa";
 
 const Activity = () => {
-  const [filter, setFilter] = useState("all");
+  const [user, setUser] = useState(null);
+  const [contacts, setContacts] = useState([]);
+  const [receiver, setReceiver] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  const [postedJobs, setPostedJobs] = useState([]);
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
-  const activities = [
-    { id: 1, sender: "John", text: "Sent you a message: 'Are you available for a project?'", type: "message", time: "2h ago" },
-    { id: 2, sender: "mark", text: "glass cleaner needed", type: "job-offer", time: "5h ago" },
-    { id: 3, sender: "Jane ", text: "Requested to message with you.", type: "connection", time: "1d ago" },
-    { id: 4, sender: "Aman", text: "Sent a job offer for patio clean", type: "job-offer", time: "2d ago" },
-    { id: 5, sender: "Client A", text: "Sent a job request", type: "job-request", time: "3d ago" }
-  ];
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+      fetchContacts(storedUser.id);
+      fetchPostedJobs(storedUser.id);
+      fetchAppliedJobs(storedUser.id);
+    }
+  }, []);
 
-  const filteredActivities = filter === "all" ? activities : activities.filter((activity) => activity.type === filter);
+  // Fetch users for chat
+  const fetchContacts = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost/backend/fetch_contacts.php?user_id=${userId}`);
+      const data = await response.json();
+      if (data.success) setContacts(data.users);
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
+  };
+
+  // Fetch posted jobs
+  const fetchPostedJobs = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost/backend/fetch_user_jobs.php?user_id=${userId}`);
+      const data = await response.json();
+      if (data.success) setPostedJobs(data.jobs);
+    } catch (error) {
+      console.error("Error fetching posted jobs:", error);
+    }
+  };
+
+  // Fetch applied jobs
+  const fetchAppliedJobs = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost/backend/fetch_applied_jobs.php?user_id=${userId}`);
+      const data = await response.json();
+      if (data.success) setAppliedJobs(data.jobs);
+    } catch (error) {
+      console.error("Error fetching applied jobs:", error);
+    }
+  };
+
+  // Fetch messages when receiver is selected
+  useEffect(() => {
+    if (user && receiver) {
+      fetchMessages();
+      const interval = setInterval(fetchMessages, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [receiver]);
+
+  const fetchMessages = async () => {
+    try {
+      const response = await fetch(`http://localhost/backend/fetch_messages.php?sender_id=${user.id}&receiver_id=${receiver.id}`);
+      const data = await response.json();
+      if (data.success) {
+        setMessages(data.messages);
+      }
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
+
+  // Send a message
+  const sendMessage = async () => {
+    if (!message.trim()) return;
+
+    try {
+      const response = await fetch("http://localhost/backend/send_message.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sender_id: user.id, receiver_id: receiver.id, message }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessages([...messages, { sender_id: user.id, message }]);
+        setMessage("");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   return (
-    <div className="activity-page">
-      
-      {/* Left Sidebar */}
-      <aside className="sidebar">
-        <h3>Filters</h3>
-        <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All Activity</button>
-        <button className={filter === "message" ? "active" : ""} onClick={() => setFilter("message")}><FaEnvelope /> Messages</button>
-        <button className={filter === "job-request" ? "active" : ""} onClick={() => setFilter("job-request")}><FaBriefcase /> Job Requests</button>
-        <button className={filter === "job-offer" ? "active" : ""} onClick={() => setFilter("job-offer")}><FaBell /> Job Offers</button>
-        <button className={filter === "connection" ? "active" : ""} onClick={() => setFilter("connection")}><FaUsers /> Connections</button>
-      </aside>
+    <div className="activity-container">
+      <h2>Activity Dashboard</h2>
 
-      {/* Main Activity Feed */}
-      <main className="activity-feed">
-        <h2>Recent Activity</h2>
-        {filteredActivities.length === 0 ? (
-          <p className="no-activity">No activity found.</p>
+      {/* Posted Jobs */}
+      <div className="section">
+        <h3>Posted Jobs</h3>
+        {postedJobs.length === 0 ? (
+          <p>No jobs posted yet.</p>
         ) : (
-          filteredActivities.map((activity) => (
-            <div key={activity.id} className={`activity-card ${activity.type}`}>
-              <div className="avatar">{activity.sender[0]}</div>
-              <div className="activity-content">
-                <strong>{activity.sender}</strong>
-                <p>{activity.text}</p>
-                <span className="timestamp">{activity.time}</span>
-              </div>
-            </div>
-          ))
+          <ul>
+            {postedJobs.map((job) => (
+              <li key={job.id}>{job.title} - {job.status}</li>
+            ))}
+          </ul>
         )}
-      </main>
+      </div>
 
-      {/* Right Sidebar */}
-      <aside className="right-sidebar">
-        <h3>Upcoming jobs</h3>
-        <div className="interview-card">
-          <FaUserTie className="icon" />
-          <p>mark - window clean</p>
-          <span>Tomorrow at 10 AM</span>
-        </div>
-        <div className="interview-card">
-          <FaUserTie className="icon" />
-          <p>Aman - patio clean</p>
-          <span>March 15 at 2 PM</span>
-        </div>
-        
-        <h3>Job Alerts</h3>
-        <div className="job-alert">
-          <p>🚀 New job posted: window clean - bradford</p>
-        </div>
-        <div className="job-alert">
-          <p>new job</p>
-        </div>
-      </aside>
+      {/* Applied Jobs */}
+      <div className="section">
+        <h3>Jobs You Applied For</h3>
+        {appliedJobs.length === 0 ? (
+          <p>No applications yet.</p>
+        ) : (
+          <ul>
+            {appliedJobs.map((job) => (
+              <li key={job.id}>{job.title} - {job.status}</li>
+            ))}
+          </ul>
+        )}
+      </div>
 
+      {/* Chat Section */}
+      <div className="chat-section">
+        <h3>Messages</h3>
+        <div className="contacts-list">
+          {contacts.map((contact) => (
+            <div key={contact.id} className="contact" onClick={() => setReceiver(contact)}>
+              {contact.name}
+            </div>
+          ))}
+        </div>
+
+        {receiver && (
+          <div className="chat-box">
+            <h4>Chat with {receiver.name}</h4>
+            <div className="messages">
+              {messages.map((msg, index) => (
+                <p key={index} className={msg.sender_id === user.id ? "my-message" : "their-message"}>
+                  <strong>{msg.sender_id === user.id ? "You" : receiver.name}:</strong> {msg.message}
+                </p>
+              ))}
+            </div>
+            <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." />
+            <button onClick={sendMessage}>Send</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Activity;
+
