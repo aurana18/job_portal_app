@@ -1,0 +1,27 @@
+.post-job-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .post-job-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-job-form input,
+  .post-job-form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-job-form button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  

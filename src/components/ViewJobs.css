@@ -1,0 +1,137 @@
+/* General container styles */
+.view-jobs-container {
+  max-width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+}
+
+/* Page heading */
+.view-jobs-container h2 {
+  font-size: 32px;
+  color: #2135cd;
+  margin-bottom: 10px;
+}
+
+.view-jobs-container p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Job Grid Layout */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+/* Job Card */
+.job-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  border-left: 6px solid #2135cd;
+  display: flex;
+  flex-direction: column;
+  min-height: 250px; /* Make cards bigger */
+}
+
+.job-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Job Title */
+.job-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2135cd;
+  margin-bottom: 8px;
+}
+
+/* Job Meta (Company & Location) */
+.job-meta {
+  font-size: 15px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Job Description */
+.job-description {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  flex-grow: 1;
+  max-height: 100px; /* Ensures better layout */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Job Budget */
+.job-budget {
+  font-size: 17px;
+  font-weight: bold;
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* See More Button */
+.see-more-btn {
+  background: transparent;
+  color: #2135cd;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 8px;
+  transition: color 0.3s;
+}
+
+.see-more-btn:hover {
+  color: #1a2ca1;
+}
+
+/* Apply Button */
+.apply-btn {
+  background-color: #2135cd;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.apply-btn:hover {
+  background-color: #1a2ca1;
+}
+
+/* No jobs available */
+.no-jobs {
+  font-size: 20px;
+  color: #888;
+  margin-top: 25px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Full width on smaller screens */
+  }
+
+  .job-card {
+    min-height: 220px; /* Slightly smaller cards for mobile */
+  }
+}
