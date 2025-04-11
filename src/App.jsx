@@ -1,60 +1,66 @@
-
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/homecomp/Header";
-import SearchBar from "./components/homecomp/SearchBar";
-import Footer from "./components/homecomp/Footer";
-import Register from "./components/Register"; 
-import ViewJobs from "./components/ViewJobs";
-import PostJobs from "./components/PostJobs"; 
-import Contact from "./components/Contact"; 
-import Profile from "./components/Profile"; 
-import Activity from "./components/Activity"; 
-import JobDetails from "./components/JobDetails";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
+import Register from "./components/Register";
+import ViewJobs from "./components/ViewJobs";
+import PostJobs from "./components/PostJobs";
+import Contact from "./components/Contact";
+import Profile from "./components/Profile";
+import Activity from "./components/Activity";
+import JobDetails from "./components/JobDetails";
 import Logout from "./components/Logout";
 import "./App.css";
 
-const Home = () => (
-  <>
-    <div className="home-container">
-      <div className="hero-section">
-        <h1>Find Quick Side Jobs & Earn Fast! 💰</h1>
-        <p>Get hired for one-time gigs, short-term tasks, and freelance work in your area.</p>
-        <SearchBar />
-      </div>
-      
-      <div className="introduction-section">
-        <h2>📢 Need Extra Cash? We've Got You Covered!</h2>
-        <p>Whether you're looking for a quick gig, a weekend job, or a short-term side hustle, we connect you with people who need your skills.</p>
-        <ul>
-          <li>⚡ **Instant Hiring** – Find quick jobs that fit your schedule</li>
-          <li>🏡 **Local & Remote Gigs** – Work from home or in your neighborhood</li>
-          <li>💵 **Get Paid Fast** – No long contracts, just quick cash!</li>
-        </ul>
-      </div>
-    </div>
-  </>
+const Sidebar = ({ isOpen, toggleSidebar }) => (
+  <div className={`sidebar ${isOpen ? "open" : ""}`}>
+    <div className="sidebar-header">Job Portal</div>
+    <nav className="sidebar-nav">
+      <Link to="/" onClick={toggleSidebar}>Home</Link>
+      <Link to="/login" onClick={toggleSidebar}>Login</Link>
+      <Link to="/register" onClick={toggleSidebar}>Register</Link>
+      <Link to="/view-jobs" onClick={toggleSidebar}>View Jobs</Link>
+      <Link to="/post-jobs" onClick={toggleSidebar}>Post Jobs</Link>
+      <Link to="/profile" onClick={toggleSidebar}>Profile</Link>
+      <Link to="/contact" onClick={toggleSidebar}>Contact</Link>
+      <Link to="/logout" onClick={toggleSidebar}>Logout</Link>
+    </nav>
+  </div>
 );
 
+const Home = () => (
+  <div className="home-container">
+    <h1 className="hero-title">Find Quick Side Jobs & Earn Fast! 💰</h1>
+    <p className="hero-subtitle">Get hired for one-time gigs, short-term tasks, and freelance work in your area.</p>
+    <input type="text" placeholder="Search for jobs..." className="search-input" />
+  </div>
+);
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/viewjobs" element={<ViewJobs />} />
-        <Route path="/job/:id" element={<JobDetails />} /> 
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/post-job" element={<PostJobs />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/activity" element={<Activity />} /> 
-        <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/logout" element={<Logout setUser={setUser} />} />
-      </Routes>
+      <div className="app-wrapper">
+        <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        <div className="main-content">
+          <button className="menu-btn" onClick={toggleSidebar}>
+            ☰ Menu
+          </button>
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/view-jobs" element={<ViewJobs />} />
+            <Route path="/post-jobs" element={<PostJobs />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/job-details" element={<JobDetails />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 };

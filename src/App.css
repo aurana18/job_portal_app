@@ -1,4 +1,4 @@
-/* Header Styling */
+/* ==== HEADER ==== */
 .header {
   width: 100%;
   padding: 15px 20px;
@@ -26,55 +26,133 @@
   text-decoration: underline;
 }
 
-/* Main App Container */
-.app-container {
-  min-height: 100vh;
-  width: 100%;
+/* ==== APP LAYOUT ==== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
+  font-family: 'Arial', sans-serif;
+  background-color: #eef2f7;
+  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png');
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  padding: 20px;
-  border-radius: 8px;
+  background-position: center;
 }
 
-/* Content Box */
-.content {
+#root, .app-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  max-width: 1200px;
+  min-height: 100vh;
+}
+
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: filter 0.3s ease;
 }
 
-/* Footer */
-footer {
-  background-color: #10227d; /* Deep Blue */
-  color: white;
-  text-align: center;
-  padding: 15px;
-  width: 100%;
-  position: relative;
-  bottom: 0;
+.main-content.blurred {
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 220px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #fff;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 20px;
+}
+
+.sidebar.open {
   left: 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
 }
 
+.sidebar-header {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
 
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.sidebar-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.sidebar-nav a:hover {
+  background-color: #333;
+}
+
+/* ==== MENU BUTTON ==== */
+.menu-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1100;
+}
+
+.menu-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ==== HOME PAGE ==== */
+.home-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero-section {
+  background: #4654e8;
+  color: white;
+  padding: 50px 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 
 .search-container {
   text-align: center;
-  margin: 40px auto; /* Adjust position */
+  margin: 40px auto;
   max-width: 600px;
 }
 
@@ -96,49 +174,6 @@ footer {
 
 .search-button:hover {
   background: #0056b3;
-}
-
-
-/* Body & Global Styles */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Arial', sans-serif;
-  background-color: #eef2f7; /* Light Grayish Blue */
-  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
-
-}
-
-#root, .app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.home-container {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.hero-section {
-  background: #4654e8; /* Warm orange for gig work vibe */
-  color: white;
-  padding: 50px 20px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  margin-bottom: 40px;
-}
-
-.hero-section h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.hero-section p {
-  font-size: 18px;
-  margin-bottom: 20px;
 }
 
 .introduction-section {
@@ -170,8 +205,31 @@ html, body {
   margin-bottom: 8px;
 }
 
+/* ==== CONTENT CONTAINER ==== */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
-
-
-
+/* ==== FOOTER ==== */
+footer {
+  background-color: #10227d;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+}
 
