@@ -1,27 +1,58 @@
 .post-job-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .post-job-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-job-form input,
-  .post-job-form textarea {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .post-job-form button {
-    background: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 30px 20px;
+}
+
+.post-job-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.post-job-box h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 26px;
+  color: #1a237e;
+}
+
+.post-job-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-job-form input,
+.post-job-form textarea,
+.post-job-form select {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.post-job-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.post-job-form button {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.post-job-form button:hover {
+  background: #0056b3;
+}

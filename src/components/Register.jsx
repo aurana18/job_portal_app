@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Register.css"; 
+import "./Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -32,15 +32,37 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
-      <form className="register-form" onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit" className="register-btn">Register</button>
-      </form>
-      {message && <p className={message.includes("successful") ? "success-message" : "error-message"}>{message}</p>}
+    <div className="register-page">
+      <div className="register-container">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit} className="register-form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" className="register-btn">Register</button>
+        </form>
+        {message && (
+          <p className={message.includes("successful") ? "success-message" : "error-message"}>{message}</p>
+        )}
+      </div>
     </div>
   );
 };
