@@ -11,7 +11,6 @@ const PostJob = () => {
 
   const [user, setUser] = useState(null);
 
-  
   useEffect(() => {
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -33,7 +32,7 @@ const PostJob = () => {
       return;
     }
 
-    const jobData = { ...formData, posted_by: user.id }; // Add posted_by field
+    const jobData = { ...formData, posted_by: user.id };
 
     try {
       const response = await fetch("http://localhost/backend/post_job.php", {
@@ -47,7 +46,6 @@ const PostJob = () => {
       const data = await response.json();
       alert(data.message);
 
-     
       setFormData({
         title: "",
         location: "",
@@ -62,40 +60,42 @@ const PostJob = () => {
 
   return (
     <div className="post-job-container">
-      <h2>Post a Job</h2>
-      <form onSubmit={handleSubmit} className="post-job-form">
-        <input
-          type="text"
-          name="title"
-          placeholder="Job Title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Job Description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="budget"
-          placeholder="Budget"
-          value={formData.budget}
-          onChange={handleChange}
-        />
-        <button type="submit">Post Job</button>
-      </form>
+      <div className="post-job-box">
+        <h2>Post a Job</h2>
+        <form onSubmit={handleSubmit} className="post-job-form">
+          <input
+            type="text"
+            name="title"
+            placeholder="Job Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+          <textarea
+            name="description"
+            placeholder="Job Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="budget"
+            placeholder="Budget"
+            value={formData.budget}
+            onChange={handleChange}
+          />
+          <button type="submit">Post Job</button>
+        </form>
+      </div>
     </div>
   );
 };

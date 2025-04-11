@@ -1,10 +1,118 @@
-/* Header Styling */
+/* Ensure body and html have the same background */
+html, body {
+  background-color: #eef2f7 !important;  /* Use !important to force the background */
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* General Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #eef2f7;  /* Light gray background for the entire page */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ===== Hero Section ===== */
+.hero-section {
+  background: linear-gradient(135deg, #2196F3, #64B5F6);  /* Vibrant gradient */
+  color: white;
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInSlide 0.8s ease;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  background: #ffffff;  /* White background for content */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 80%;
+  margin: auto;
+  animation: fadeInSlide 0.6s ease;
+  text-align: center;
+}
+
+/* ===== Footer ===== */
+footer {
+  background-color: #1a237e;  /* Deep blue footer */
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+footer p {
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsive Design for Smaller Screens ===== */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 20px;
+  }
+
+  .main-content {
+    padding: 24px 16px;
+    max-width: 90%;
+  }
+
+  footer {
+    font-size: 12px;
+  }
+}
+
+/* ===== Header Styling ===== */
 .header {
   width: 100%;
-  padding: 15px 20px;
-  background-color: #1a237e; /* Deep Indigo */
+  padding: 10px 20px;
+  background-color: #10227d;
   text-align: center;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
@@ -14,32 +122,16 @@
 }
 
 .header a {
-  color: #252dd4; 
+  color: #fff;
   text-decoration: none;
   margin: 0 15px;
-  font-size: 18px;
+  font-size: 16px;
   transition: color 0.3s ease;
 }
 
 .header a:hover {
-  color: #3557ef; 
+  color: #2196F3;
   text-decoration: underline;
-}
-
-/* Main App Container */
-.app-container {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 20px;
-  border-radius: 8px;
 }
 
 /* Content Box */
@@ -56,122 +148,62 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Footer */
-footer {
-  background-color: #10227d; /* Deep Blue */
-  color: white;
-  text-align: center;
-  padding: 15px;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-}
-
-
-
 .search-container {
   text-align: center;
-  margin: 40px auto; /* Adjust position */
+  margin: 30px auto;
   max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search-input {
-  width: 70%;
-  padding: 10px;
+  flex: 1;
+  padding: 12px;
   border: 1px solid #007BFF;
   border-radius: 5px;
+  min-width: 250px;
+  font-size: 16px;  /* Slightly bigger font for visibility */
 }
 
 .search-button {
-  padding: 10px 15px;
+  padding: 12px 15px;
   background: #007BFF;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  min-width: 120px;
+  font-size: 16px;
 }
 
 .search-button:hover {
   background: #0056b3;
 }
 
-
-/* Body & Global Styles */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+/* Centered Content */
+.centered-container {
   display: flex;
-  flex-direction: column;
-  font-family: 'Arial', sans-serif;
-  background-color: #eef2f7; /* Light Grayish Blue */
-  background-image: url('https://www.employmenthelp.org/wp-content/uploads/Job-Board-Header-Background.png'); 
-
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 30px;
 }
 
-#root, .app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.home-container {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.hero-section {
-  background: #4654e8; /* Warm orange for gig work vibe */
-  color: white;
-  padding: 50px 20px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  margin-bottom: 40px;
+.centered-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
-.hero-section h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.hero-section p {
-  font-size: 18px;
+.centered-box h2 {
+  font-size: 24px;
+  color: #1a237e;
+  font-weight: 600;
   margin-bottom: 20px;
 }
-
-.introduction-section {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.introduction-section h2 {
-  font-size: 28px;
-  color: #f59e0b;
-  margin-bottom: 10px;
-}
-
-.introduction-section p {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 15px;
-}
-
-.introduction-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.introduction-section li {
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-
-
-
-
-
