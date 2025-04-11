@@ -1,31 +1,38 @@
 <?php
-include 'db_connect.php';
+session_start();
+require_once '../db_connect.php';
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $role = $_POST['role'] ?? 'employee'; // default to employee
 
-$data = json_decode(file_get_contents("php://input"));
-
-if (isset($data->name) && isset($data->email) && isset($data->password)) {
-    $name = $data->name;
-    $email = $data->email;
-    $password = password_hash($data->password, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $name, $email, $password);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "User registered successfully!"]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Error registering user."]);
+    if (!$username || !$email || !$password) {
+        http_response_code(400);
+        echo json_encode(['error' => 'All fields are required.']);
+        exit;
     }
 
-    $stmt->close();
-} else {
-    echo json_encode(["success" => false, "message" => "Invalid input."]);
-}
+    // Check if user already exists
+    $check = $conn->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
+    $check->execute([$email, $username]);
+    if ($check->fetch()) {
+        http_response_code(409);
+        echo json_encode(['error' => 'Username or email already in use.']);
+        exit;
+    }
 
-$conn->close();
+    // Hash the password
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert user
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$username, $email, $password_hash, $role]);
+
+    echo json_encode(['message' => 'Registration successful.']);
+} else {
+    http_response_code(405);
+    echo json_encode(['error' => 'Only POST method is allowed.']);
+}
 ?>

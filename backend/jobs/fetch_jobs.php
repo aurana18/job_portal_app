@@ -1,28 +1,29 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
+session_start();
+require_once '../db_connect.php';
 
-// Include database connection
-require_once __DIR__ . "/db_connect.php";
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $poster_id = $_GET['poster_id'] ?? null;
 
-// Fetch jobs with the name of the user who posted them
-$sql = "SELECT jobs.id, jobs.title, jobs.location, jobs.description, jobs.budget, 
-               users.name AS posted_by_name 
-        FROM jobs 
-        LEFT JOIN users ON jobs.posted_by = users.id";
-
-$result = $conn->query($sql);
-
-$jobs = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $jobs[] = $row;
+    if (!$poster_id) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing poster ID.']);
+        exit;
     }
+
+    $stmt = $conn->prepare("SELECT id, title, description, payout, location, created_at 
+                            FROM jobs 
+                            WHERE poster_id = ? AND deleted_at IS NULL 
+                            ORDER BY created_at DESC");
+    $stmt->execute([$poster_id]);
+
+    $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($jobs);
+} else {
+    http_response_code(405);
+    echo json_encode(['error' => 'Only GET method is allowed.']);
 }
-
-// Return jobs as JSON
-echo json_encode($jobs);
-
-$conn->close();
 ?>
+
 

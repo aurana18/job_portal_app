@@ -1,44 +1,35 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+session_start();
+require_once '../db_connect.php';
 
-include "db_connect.php"; // Connect to database
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $job_id = $_POST['job_id'] ?? null;
+    $applicant_id = $_POST['applicant_id'] ?? null;
 
-$data = json_decode(file_get_contents("php://input"));
+    if (!$job_id || !$applicant_id) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing job ID or applicant ID.']);
+        exit;
+    }
 
-if (!isset($data->user_id) || !isset($data->job_id)) {
-    echo json_encode(["success" => false, "message" => "Invalid request"]);
-    exit;
-}
+    // Check if the user has already applied
+    $check = $conn->prepare("SELECT id FROM job_applications WHERE job_id = ? AND applicant_id = ?");
+    $check->execute([$job_id, $applicant_id]);
 
-$user_id = intval($data->user_id);
-$job_id = intval($data->job_id);
+    if ($check->fetch()) {
+        http_response_code(409);
+        echo json_encode(['error' => 'You have already applied for this job.']);
+        exit;
+    }
 
-// Check if the user already applied
-$checkQuery = "SELECT * FROM job_applications WHERE user_id = ? AND job_id = ?";
-$stmt = $conn->prepare($checkQuery);
-$stmt->bind_param("ii", $user_id, $job_id);
-$stmt->execute();
-$result = $stmt->get_result();
+    // Insert new application
+    $stmt = $conn->prepare("INSERT INTO job_applications (job_id, applicant_id) VALUES (?, ?)");
+    $stmt->execute([$job_id, $applicant_id]);
 
-if ($result->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "You have already applied for this job."]);
-    exit;
-}
-
-// Insert new application
-$query = "INSERT INTO job_applications (user_id, job_id) VALUES (?, ?)";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("ii", $user_id, $job_id);
-
-if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "Application submitted successfully!"]);
+    echo json_encode(['message' => 'Application submitted successfully.']);
 } else {
-    echo json_encode(["success" => false, "message" => "Database error. Try again later."]);
+    http_response_code(405);
+    echo json_encode(['error' => 'Only POST method is allowed.']);
 }
-
-$stmt->close();
-$conn->close();
 ?>
+

@@ -1,43 +1,27 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Credentials: true");
+session_start();
+require_once '../db_connect.php';
 
-// Handle CORS preflight request
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(200);
-    exit();
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = trim($_POST['title'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $payout = $_POST['payout'] ?? null;
+    $location = trim($_POST['location'] ?? '');
+    $poster_id = $_POST['poster_id'] ?? null;
 
-// Include database connection
-require_once __DIR__ . "/db_connect.php";
-
-// Check if the request method is POST
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get JSON input
-    $data = json_decode(file_get_contents("php://input"), true);
-    
-    // Validate input
-    if (!isset($data["title"]) || !isset($data["location"]) || !isset($data["description"]) || !isset($data["posted_by"])) {
-        echo json_encode(["message" => "Invalid input."]);
-        exit();
+    if (!$title || !$poster_id) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Title and poster ID are required.']);
+        exit;
     }
 
-    // Insert into database
-    $stmt = $conn->prepare("INSERT INTO jobs (title, location, description, budget, posted_by) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssi", $data["title"], $data["location"], $data["description"], $data["budget"], $data["posted_by"]);
+    $stmt = $conn->prepare("INSERT INTO jobs (title, description, payout, location, poster_id) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$title, $description, $payout, $location, $poster_id]);
 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "Job posted successfully"]);
-    } else {
-        echo json_encode(["message" => "Error posting job"]);
-    }
-
-    $stmt->close();
-    $conn->close();
+    echo json_encode(['message' => 'Job posted successfully.']);
 } else {
-    echo json_encode(["message" => "Invalid request method"]);
+    http_response_code(405);
+    echo json_encode(['error' => 'Only POST method is allowed.']);
 }
 ?>
 
